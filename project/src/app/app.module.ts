@@ -14,6 +14,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { DbServiceProvider } from '../providers/db-service/db-service';
 import { ProfileServiceProvider } from '../providers/profile-service/profile-service';
 
+import { HttpModule } from '@angular/http';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { FirebaseProvider } from './../providers/firebase/firebase';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyDT1WArayZ9uXvJzrp-G5KDof3AdcPIm4A",
+  authDomain: "trabajofinalapm6productapp.firebaseapp.com",
+  databaseURL: "https://trabajofinalapm6productapp.firebaseio.com",
+  projectId: "trabajofinalapm6productapp",
+  storageBucket: "trabajofinalapm6productapp.appspot.com",
+  messagingSenderId: "899633316104"
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -26,7 +40,10 @@ import { ProfileServiceProvider } from '../providers/profile-service/profile-ser
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    HttpModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    IonicModule.forRoot(MyApp),    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +59,8 @@ import { ProfileServiceProvider } from '../providers/profile-service/profile-ser
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DbServiceProvider,
-    ProfileServiceProvider
+    ProfileServiceProvider,
+    FirebaseProvider
   ]
 })
 export class AppModule {}
